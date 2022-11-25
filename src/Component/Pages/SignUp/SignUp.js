@@ -1,18 +1,59 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
+import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
+import Swal from 'sweetalert2'
 
 const SignUp = () => {
+  const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
+  const [errorMess, setErrorMess] = useState('');
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const handleSignUp = (data) => {
-    console.log(data);
+    setErrorMess("");
+    // const image = data.image[0];
+    // const formData = new FormData()
+    // formData.append('image',image)
+    // console.log(formData);
+    const { name, email, password } = data;
+    createUser(email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+        Swal.fire({
+          title: 'Success!',
+          text: 'Your account sucessfully created',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
+        updateUser(name)
+          .then(() => {
+            navigate('/')
+          })
+          .catch((error) => {
+            setErrorMess(error);
+          });
+      })
+      .catch((error) => console.log(error));
   };
+  const handleSignInWithGoogle = ()=>{
+    signInWithGoogle()
+    .then(result=>{
+      console.log(result.user)
+      navigate('/')
+    })
+    .catch(error=>{
+      const errorMessage = error.message;
+      console.log(errorMessage)
+    })
+  };
+  
+ 
   return (
     <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-items-center justify-center items-center my-6">
       <div className="justify-center items-center">
@@ -37,7 +78,8 @@ const SignUp = () => {
               className="input input-bordered input-secondary w-full max-w-sm"
             />
           </div>
-          <div className="form-control w-full max-w-sm">
+         <div className="grid grid-cols-2 gap-4">
+         <div className="form-control w-full max-w-sm">
             <label className="label">
               <span className="label-text font-semibold text-lg">Select Your Role</span>
             </label>
@@ -47,6 +89,17 @@ const SignUp = () => {
               
             </select>
           </div>
+          <div className="form-control w-full max-w-sm">
+            <label className="label">
+              <span className="label-text font-semibold text-lg">Upload a photo</span>
+            </label>
+            <input
+              {...register("image", { required: true})}
+              type="file"
+              className="input input-bordered input-secondary  w-full max-w-sm"
+            />
+          </div>
+         </div>
           <div className="form-control w-full max-w-sm">
             <label className="label">
               <span className="label-text font-semibold text-lg">Email</span>
@@ -77,7 +130,7 @@ const SignUp = () => {
           </div>
           <label className="label">
             <span className="label-text font-semibold text-lg text-red">
-              {/* {errorMess} */}
+              {errorMess}
             </span>
           </label>
           <input
@@ -94,7 +147,7 @@ const SignUp = () => {
           </label>
           <div className="divider">OR</div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
-            <button className="btn btn-outline btn-primary w-full text-4xl rounded-full">
+            <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary w-full text-4xl rounded-full">
               <FcGoogle></FcGoogle>
             </button>
             <button className="btn btn-outline btn-primary w-full text-4xl rounded-full font-bold">

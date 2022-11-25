@@ -1,35 +1,46 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
 
 const Navbar = () => {
-    const menuItems = (
-        <React.Fragment>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/blogs">Blogs</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/products">Products</Link>
-          </li>
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
+  const handleLogout = ()=>{
+    logOut()
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+};
+  const menuItems = (
+    <React.Fragment>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/blogs">Blogs</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="/products">Products</Link>
+      </li>
+      {user?.uid ? (
+        <>
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          
-            <li>
-              <Link onClick={''}>Sign Out</Link>
-            </li>
-        
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-         
-        </React.Fragment>
-      );
+          <li>
+            <Link onClick={handleLogout}>Sign Out</Link>
+          </li>
+        </>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
+    </React.Fragment>
+  );
+ 
   return (
     <div className="navbar bg-primary text-white">
       <div className="navbar-start">
@@ -55,22 +66,23 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary rounded-box w-52"
           >
             {menuItems}
-
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+        <Link className="btn btn-ghost normal-case text-xl">Resale Market</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal p-0">
-        {menuItems}
-        </ul>
+        <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <div className="avatar">
-          <div className="w-12 mask mask-hexagon">
-            <img src="https://placeimg.com/192/192/people" alt=""/>
+        {user?.photoURL ? (
+          <div className="avatar">
+            <div className="w-12 mask mask-hexagon">
+              <img src={user?.photoURL} alt="" />
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

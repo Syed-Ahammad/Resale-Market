@@ -1,3 +1,4 @@
+import DashboardLayout from "../../Component/Pages/Dashboard/DashboardLayout/DashboardLayout";
 import Login from "../../Component/Pages/Login/Login";
 import SignUp from "../../Component/Pages/SignUp/SignUp";
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter(
                     element: <SignUp></SignUp>
                 },
             ]
+        },
+        {
+            path: '/dashboard',
+            element:<DashboardLayout></DashboardLayout>
         }
     ]
 );

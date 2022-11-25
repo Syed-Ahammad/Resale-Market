@@ -1,18 +1,30 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { Link } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook } from 'react-icons/bs';
 import {useForm} from "react-hook-form"
+import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Login = () => {
+  const { logIn } = useContext(AuthContext);
+const [logInUserEmail, setLogInUserEmail] = useState('')
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm();
       const handleLogin = (data) => {
-        console.log(data);
+        // console.log(data);
+        const { email, password } = data;
+        logIn(email, password)
+          .then((user) => {
+            console.log(user);
+            setLogInUserEmail(email);
+          
+          })
+          .catch((error) => console.log(error));
       };
+      console.log(logInUserEmail)
     return (
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-items-center justify-center items-center my-6">
         <div>
@@ -30,7 +42,7 @@ const Login = () => {
             <input
               {...register("email")}
               type="email"
-              className="input input-bordered w-full max-w-sm"
+              className="input input-bordered  input-secondary w-full max-w-sm"
             />
           </div>
           <div className="form-control w-full max-w-sm">
@@ -44,7 +56,7 @@ const Login = () => {
                 message: "password must be strong",
               })}
               type="password"
-              className="input input-bordered w-full max-w-sm"
+              className="input input-bordered  input-secondary w-full max-w-sm"
               aria-invalid={errors.password ? "true" : "false"}
             />
             {errors.password && (
