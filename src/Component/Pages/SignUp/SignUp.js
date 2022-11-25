@@ -1,14 +1,28 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { FcGoogle } from 'react-icons/fc';
+import { BsFacebook } from 'react-icons/bs';
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors }} = useForm();
-    return (
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleSignUp = (data) => {
+    console.log(data);
+  };
+  return (
+    <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-content-center justify-center items-center my-6">
         <div>
-            <div className="w-96">
-        <h2 className="text-4xl text-center pb-6">Register here!! </h2>
-        <form onSubmit={handleSubmit()}>
+        <img className="w-96" src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?w=360" alt="" />
+        </div>
+      <div className="w-96">
+        <h2 className="text-4xl text-center pb-6 font-extrabold text-orange-500">
+          Sign Up to Get Benefit !!
+        </h2>
+        <form onSubmit={handleSubmit(handleSignUp)}>
           <div className="form-control w-full max-w-sm">
             <label className="label">
               <span className="label-text font-semibold">Name</span>
@@ -36,7 +50,7 @@ const SignUp = () => {
             <input
               {...register("password", {
                 required: "Password is required",
-                pattern: { value: /(?=.*[A-Z])(?=.*[!@#$*])(?=.*[0-9])/ },
+                // pattern: { value: /(?=.*[A-Z])(?=.*[!@#$*])(?=.*[0-9])/ },
                 message: "password must be strong",
               })}
               type="password"
@@ -52,24 +66,31 @@ const SignUp = () => {
               {/* {errorMess} */}
             </span>
           </label>
-          <input type="submit" className="btn btn-active w-full mt-6" />
+          <input
+            type="submit"
+            className="btn btn-active w-full btn-primary mt-6"
+          />
           <label className="label">
             <span className="label-text-alt text-[16px] text-center">
               Already have an account?
-              <Link className="text-[#19D3AE] font-normal" to={"/login"}>
+              <Link className="text-[#04348f] font-normal" to={"/login"}>
                 Please Log In.
               </Link>
             </span>
           </label>
           <div className="divider">OR</div>
-          <button className="btn btn-outline w-full">
-            Continue With Google
-          </button>
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+            <button className="btn btn-outline btn-primary w-full text-4xl rounded-full">
+            <FcGoogle></FcGoogle>
+            </button>
+            <button className="btn btn-outline btn-primary w-full text-4xl rounded-full font-bold">
+            <BsFacebook></BsFacebook>
+            </button>
+          </div>
         </form>
       </div>
-            
-        </div>
-    );
+    </div>
+  );
 };
 
 export default SignUp;
