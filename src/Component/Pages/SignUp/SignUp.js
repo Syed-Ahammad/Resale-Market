@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { FcGoogle } from 'react-icons/fc';
-import { BsFacebook } from 'react-icons/bs';
+import { FcGoogle } from "react-icons/fc";
+import { BsFacebook } from "react-icons/bs";
 
 const SignUp = () => {
   const {
@@ -14,47 +14,61 @@ const SignUp = () => {
     console.log(data);
   };
   return (
-    <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-content-center justify-center items-center my-6">
-        <div>
-        <img className="w-96" src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?w=360" alt="" />
-        </div>
-      <div className="w-96">
+    <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-items-center justify-center items-center my-6">
+      <div className="justify-center items-center">
+        <img
+          className="w-96"
+          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?w=360"
+          alt=""
+        />
+      </div>
+      <div className="w-96 justify-center items-center">
         <h2 className="text-4xl text-center pb-6 font-extrabold text-orange-500">
           Sign Up to Get Benefit !!
         </h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <div className="form-control w-full max-w-sm">
             <label className="label">
-              <span className="label-text font-semibold">Name</span>
+              <span className="label-text font-semibold text-lg">Name</span>
             </label>
             <input
-              {...register("name")}
+              {...register("name", { required: true})}
               type="text"
-              className="input input-bordered w-full max-w-sm"
+              className="input input-bordered input-secondary w-full max-w-sm"
             />
           </div>
           <div className="form-control w-full max-w-sm">
             <label className="label">
-              <span className="label-text font-semibold">Email</span>
+              <span className="label-text font-semibold text-lg">Select Your Role</span>
+            </label>
+            <select {...register("role", { required: true})} className="select select-secondary w-full max-w-sm">
+              <option value='seller'>Seller</option>
+              <option value="buyer">Buyer</option>
+              
+            </select>
+          </div>
+          <div className="form-control w-full max-w-sm">
+            <label className="label">
+              <span className="label-text font-semibold text-lg">Email</span>
             </label>
             <input
-              {...register("email")}
+              {...register("email", { required: true})}
               type="email"
-              className="input input-bordered w-full max-w-sm"
+              className="input input-bordered input-secondary  w-full max-w-sm"
             />
           </div>
           <div className="form-control w-full max-w-sm">
             <label className="label">
-              <span className="label-text font-semibold">Password</span>
+              <span className="label-text font-semibold text-lg">Password</span>
             </label>
             <input
               {...register("password", {
                 required: "Password is required",
-                // pattern: { value: /(?=.*[A-Z])(?=.*[!@#$*])(?=.*[0-9])/ },
+                pattern: { value: /(?=.*[A-Z])(?=.*[!@#$*])(?=.*[0-9])/ },
                 message: "password must be strong",
               })}
               type="password"
-              className="input input-bordered w-full max-w-sm"
+              className="input input-bordered input-secondary  w-full max-w-sm"
               aria-invalid={errors.password ? "true" : "false"}
             />
             {errors.password && (
@@ -62,7 +76,7 @@ const SignUp = () => {
             )}
           </div>
           <label className="label">
-            <span className="label-text font-semibold text-red">
+            <span className="label-text font-semibold text-lg text-red">
               {/* {errorMess} */}
             </span>
           </label>
@@ -81,10 +95,10 @@ const SignUp = () => {
           <div className="divider">OR</div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
             <button className="btn btn-outline btn-primary w-full text-4xl rounded-full">
-            <FcGoogle></FcGoogle>
+              <FcGoogle></FcGoogle>
             </button>
             <button className="btn btn-outline btn-primary w-full text-4xl rounded-full font-bold">
-            <BsFacebook></BsFacebook>
+              <BsFacebook></BsFacebook>
             </button>
           </div>
         </form>
