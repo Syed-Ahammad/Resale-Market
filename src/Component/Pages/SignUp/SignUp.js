@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 
 const SignUp = () => {
   const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
+  const [createdUserEmail, setCreatedUserEmail] = useState('');
   const [errorMess, setErrorMess] = useState('');
   const navigate = useNavigate();
   const {
@@ -21,7 +22,7 @@ const SignUp = () => {
     // const formData = new FormData()
     // formData.append('image',image)
     // console.log(formData);
-    const { name, email, password } = data;
+    const { name, email, password, role } = data;
     createUser(email, password)
       .then((userCredential) => {
         console.log(userCredential);
@@ -33,6 +34,7 @@ const SignUp = () => {
         })
         updateUser(name)
           .then(() => {
+            saveUser(name, email, role)
             navigate('/')
           })
           .catch((error) => {
@@ -51,6 +53,22 @@ const SignUp = () => {
       const errorMessage = error.message;
       console.log(errorMessage)
     })
+  };
+   // post api for save user in DB
+   const saveUser = (name, email, role) => {
+    const user = { name, email, role };
+    fetch('http://localhost:5000/users',{
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log('save user success', data)
+        setCreatedUserEmail(email);
+      });
   };
   
  
@@ -94,7 +112,7 @@ const SignUp = () => {
               <span className="label-text font-semibold text-lg">Upload a photo</span>
             </label>
             <input
-              {...register("image", { required: true})}
+              {...register("image")}
               type="file"
               className="input input-bordered input-secondary  w-full max-w-sm"
             />

@@ -1,35 +1,48 @@
-import React, {useContext, useState} from 'react';
-import { Link } from "react-router-dom";
-import { FcGoogle } from 'react-icons/fc';
-import { BsFacebook } from 'react-icons/bs';
-import {useForm} from "react-hook-form"
-import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { BsFacebook } from "react-icons/bs";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { logIn } = useContext(AuthContext);
-const [logInUserEmail, setLogInUserEmail] = useState('')
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm();
-      const handleLogin = (data) => {
-        // console.log(data);
-        const { email, password } = data;
-        logIn(email, password)
-          .then((user) => {
-            console.log(user);
-            setLogInUserEmail(email);
-          
-          })
-          .catch((error) => console.log(error));
-      };
-      console.log(logInUserEmail)
-    return (
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-items-center justify-center items-center my-6">
-        <div>
-        <img className="w-96" src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?w=360" alt="" />
-        </div>
+  const [logInUserEmail, setLogInUserEmail] = useState("");
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const handleLogin = (data) => {
+    // console.log(data);
+    const { email, password } = data;
+    logIn(email, password)
+      .then((user) => {
+        console.log(user);
+
+        setLogInUserEmail(email);
+        Swal.fire({
+          title: "Success!",
+          text: "Your account sucessfully log in",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        navigate('/')
+      })
+      .catch((error) => console.log(error));
+  };
+  console.log(logInUserEmail);
+  return (
+    <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-items-center justify-center items-center my-6">
+      <div>
+        <img
+          className="w-96"
+          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?w=360"
+          alt=""
+        />
+      </div>
       <div className="w-96">
         <h2 className="text-4xl text-center pb-6 font-extrabold text-orange-500">
           Sign In to Drive Your Sell or Buy!!
@@ -86,16 +99,16 @@ const [logInUserEmail, setLogInUserEmail] = useState('')
           <div className="divider">OR</div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
             <button className="btn btn-outline btn-primary w-full text-4xl rounded-full">
-            <FcGoogle></FcGoogle>
+              <FcGoogle></FcGoogle>
             </button>
             <button className="btn btn-outline btn-primary w-full text-4xl rounded-full font-bold">
-            <BsFacebook></BsFacebook>
+              <BsFacebook></BsFacebook>
             </button>
           </div>
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default Login;
