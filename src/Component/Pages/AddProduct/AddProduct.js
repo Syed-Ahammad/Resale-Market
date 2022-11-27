@@ -30,25 +30,38 @@ const AddProduct = () => {
                 description: data.description,
                 image: imgData.data.url,
                 mbNumber: data.mbNumber,
-                price: data.price,
+                price: parseInt(data.price),
                 productName: data.productName,
                 purchaseTime: data.purchaseTime
 
             }
-            console.log(product)
+            saveProduct(product)
           }
         });
     // console.log(data);
-    // const {  } = data;
-    //     Swal.fire({
-    //       title: 'Success!',
-    //       text: 'Your account sucessfully created',
-    //       icon: 'success',
-    //       confirmButtonText: 'Ok'
-    //     })
+   
         
   };
-  
+//    post api for save produnt in DB
+   const saveProduct = (product) => {
+    fetch('http://localhost:5000/addproduct',{
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+             Swal.fire({
+          title: 'Success!',
+          text: 'Your product sucessfully added',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
+        console.log('save product success', data)
+      });
+  };
   
     return (
         <div className="place-items-center my-6">
