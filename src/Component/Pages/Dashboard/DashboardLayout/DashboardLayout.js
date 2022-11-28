@@ -4,10 +4,14 @@ import Navbar from "../../../SharedPage/Navbar/Navbar";
 import Footer from "../../../SharedPage/Footer/Footer";
 import UseAdmin from "../../../../UseAdmin/UseAdmin";
 import { AuthContext } from "../../../../Context/AuthProvider/AuthProvider";
+import UseBuyer from "../../../../Hooks/UseBuyer/UseBuyer";
+import UseSeller from "../../../../Hooks/UseSeller/UseSeller";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = UseAdmin(user?.email);
+  const [isBuyer] = UseBuyer(user?.email);
+  const [isSeller] = UseSeller(user?.email);
   const dashboardMenus = (
     <>
     {isAdmin && <>
@@ -21,7 +25,7 @@ const DashboardLayout = () => {
         <Link>All Sellers</Link>
       </li>
     </>}
-      
+    {isSeller && <>
       <li>
         <Link>My Buyers</Link>
       </li>
@@ -31,12 +35,15 @@ const DashboardLayout = () => {
       <li>
         <Link to={"/dashboard/addproduct"}>Add a product</Link>
       </li>
-      <li>
+    </>}
+      
+      
+     {isBuyer && <> <li>
         <Link>My Orders</Link>
       </li>
       <li>
         <Link>My Wishlist</Link>
-      </li>
+      </li></>}
     </>
   );
   return (
