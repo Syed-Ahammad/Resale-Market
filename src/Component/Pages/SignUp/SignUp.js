@@ -101,7 +101,7 @@ const SignUp = () => {
             <label className="label">
               <span className="label-text font-semibold text-lg">Select Your Role</span>
             </label>
-            <select {...register("role", { required: true})} className="select select-secondary w-full max-w-sm">
+            <select defaultValue={'select one'} {...register("role", { required: true})} className="select select-secondary w-full max-w-sm">
               <option value='seller'>Seller</option>
               <option value="buyer">Buyer</option>
               

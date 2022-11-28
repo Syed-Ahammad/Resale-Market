@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
-    handleSubmit,
-    formState: { errors },
+    handleSubmit
   } = useForm();
   const handleAddProduct =(data) => {
     const image = data.image[0];
@@ -43,7 +44,7 @@ const AddProduct = () => {
         
   };
 //    post api for save produnt in DB
-   const saveProduct = (product) => {
+   const saveProduct = async(product) => {
     fetch('http://localhost:5000/addproduct',{
       method: "POST",
       headers: {
@@ -59,6 +60,7 @@ const AddProduct = () => {
           icon: 'success',
           confirmButtonText: 'OK'
         })
+        navigate('/dashboard/myproduct')
         console.log('save product success', data)
       });
   };
@@ -79,7 +81,7 @@ const AddProduct = () => {
               {...register("email")}
               type="email"
               className="input input-bordered input-secondary w-full max-w-sm"
-              value='exa@mple.com'
+              value={user?.email}
               readOnly
             />
           </div>

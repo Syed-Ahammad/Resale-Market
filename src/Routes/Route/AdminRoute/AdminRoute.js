@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../../../Component/SharedPage/Loading/Loading';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 import UseAdmin from '../../../UseAdmin/UseAdmin';
 
@@ -9,7 +10,7 @@ const AdminRoute = ({children}) => {
     const location = useLocation();
 
     if(adminLoading || loading){
-        return <progress className="progress w-56"></progress>;
+        return <Loading></Loading>;
     }
 
     if(isAdmin & user){

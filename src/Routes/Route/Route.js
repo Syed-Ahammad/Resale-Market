@@ -1,6 +1,7 @@
 import AddProduct from "../../Component/Pages/AddProduct/AddProduct";
 import DashboardLayout from "../../Component/Pages/Dashboard/DashboardLayout/DashboardLayout";
 import Login from "../../Component/Pages/Login/Login";
+import MyProducts from "../../Component/Pages/MyProducts/MyProducts";
 import SignUp from "../../Component/Pages/SignUp/SignUp";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter(
                 {
                     path: '/dashboard/addproduct',
                     element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
+                },
+                {
+                    path: '/dashboard/myproduct',
+                    element: <PrivateRoute><MyProducts></MyProducts></PrivateRoute>
                 }
             ]
         }
