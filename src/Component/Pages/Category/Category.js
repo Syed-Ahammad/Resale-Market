@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import {Link} from "react-router-dom";
 import Loading from "../../SharedPage/Loading/Loading";
 
 const Category = () => {
@@ -27,19 +28,14 @@ const Category = () => {
       </h2>
       <div className="divider"></div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 place-items-center">
-        {categories.map((category) => (
-          <div className="card card-compact w-96 bg-base-100 shadow-xl">
-            <figure>
-              <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-            </figure>
+        {categories.map((category, i) => (
+         <Link key={i} to={`dashboard/products/${category}`}> <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <h2 className="text-6xl text-indigo-600 text-center">{category}</h2>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
               </div>
             </div>
-          </div>
+          </div></Link>
         ))}
       </div>
     </div>

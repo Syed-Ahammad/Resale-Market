@@ -1,5 +1,6 @@
 import AddProduct from "../../Component/Pages/AddProduct/AddProduct";
 import Blogs from "../../Component/Pages/Blogs/Blogs";
+import CategoryProduct from "../../Component/Pages/CategoryProduct/CategoryProduct";
 import DashboardLayout from "../../Component/Pages/Dashboard/DashboardLayout/DashboardLayout";
 import ErrorPage from "../../Component/Pages/ErrorPage/ErrorPage";
 import Login from "../../Component/Pages/Login/Login";
@@ -16,7 +17,7 @@ const router = createBrowserRouter(
         {
             path: '/',
             element: <Main></Main>,
-            errorElement: <ErrorPage />,
+            errorElement: <ErrorPage></ErrorPage>,
             children: [
                 {
                     path: '/',
@@ -39,7 +40,7 @@ const router = createBrowserRouter(
         {
             path: '/dashboard',
             element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-            errorElement: <ErrorPage/>,
+            errorElement: <ErrorPage></ErrorPage>,
             children:[
                 {
                     path: '/dashboard/addproduct',
@@ -48,6 +49,13 @@ const router = createBrowserRouter(
                 {
                     path: '/dashboard/myproduct',
                     element: <PrivateRoute><MyProducts></MyProducts></PrivateRoute>
+                },
+                {
+                    path: '/dashboard/products/:category',
+                    element: <PrivateRoute><CategoryProduct></CategoryProduct></PrivateRoute>,
+                    loader: async ({ params }) => {
+                        return fetch(`http://localhost:5000/dashboard/products/${params.category}`);
+                      },
                 }
             ]
         }
