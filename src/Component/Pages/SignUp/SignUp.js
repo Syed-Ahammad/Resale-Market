@@ -57,7 +57,7 @@ const SignUp = () => {
    // post api for save user in DB
    const saveUser = (name, email, role) => {
     const user = { name, email, role };
-    fetch('http://localhost:5000/users',{
+    fetch('https://resale-market-server-eight.vercel.app/users',{
       method: "POST",
       headers: {
         "content-type": "application/json",

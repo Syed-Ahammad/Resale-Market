@@ -13,7 +13,7 @@ const MyProducts = () => {
     queryKey: ["seller/myproduct", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/seller/myproduct?email=${user?.email}`
+        `https://resale-market-server-eight.vercel.app/seller/myproduct?email=${user?.email}`
       );
       const data = await res.json();
       return data;
