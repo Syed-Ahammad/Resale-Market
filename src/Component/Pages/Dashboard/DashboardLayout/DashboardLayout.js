@@ -14,36 +14,43 @@ const DashboardLayout = () => {
   const [isSeller] = UseSeller(user?.email);
   const dashboardMenus = (
     <>
-    {isAdmin && <>
-      <li>
-        <Link>All Products</Link>
-      </li>
-      <li>
-        <Link>All Buyers</Link>
-      </li>
-      <li>
-        <Link>All Sellers</Link>
-      </li>
-    </>}
-    {isSeller && <>
-      <li>
-        <Link>My Buyers</Link>
-      </li>
-      <li>
-        <Link to={'/dashboard/myproduct'}>My Products</Link>
-      </li>
-      <li>
-        <Link to={"/dashboard/addproduct"}>Add a product</Link>
-      </li>
-    </>}
-      
-      
-     {isBuyer && <> <li>
-        <Link>My Orders</Link>
-      </li>
-      <li>
-        <Link>My Wishlist</Link>
-      </li></>}
+      {isAdmin && (
+        <>
+          <li>
+            <Link>All Products</Link>
+          </li>
+          <li>
+            <Link>All Buyers</Link>
+          </li>
+          <li>
+            <Link>All Sellers</Link>
+          </li>
+        </>
+      )}
+      {isSeller && (
+        <>
+          <li>
+            <Link>My Buyers</Link>
+          </li>
+          <li>
+            <Link to={"/dashboard/myproduct"}>My Products</Link>
+          </li>
+          <li>
+            <Link to={"/dashboard/addproduct"}>Add a product</Link>
+          </li>
+        </>
+      )}
+
+      {isBuyer && (
+        <>
+          <li>
+            <Link>My Orders</Link>
+          </li>
+          <li>
+            <Link>My Wishlist</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -57,7 +64,7 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="dashboard-page" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+          <ul className="menu p-4 w-80 bg-base-300 text-base-content">
             {/* <!-- Sidebar content here --> */}
             {dashboardMenus}
           </ul>

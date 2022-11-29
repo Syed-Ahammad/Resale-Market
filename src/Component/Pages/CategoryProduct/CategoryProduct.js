@@ -1,5 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import BookingModal from "../BookingModal/BookingModal";
 
 const CategoryProduct = () => {
   const products = useLoaderData();
@@ -11,20 +12,22 @@ const CategoryProduct = () => {
         {products.map((p) => (
           <div key={p._id} className="card card-compact w-96 bg-base-100 shadow-xl">
             <figure>
-              <img src={p.image} alt="Shoes" />
+              <img className="h-56" src={p.image} alt="" />
             </figure>
             <div className="card-body">
-              <h2 className="card-title">{p.category}</h2>
-             <div className="grid grid-cols-2 gap-4"> <p>{p.price}</p>
-              <p>{p.condition}</p>
-              <p>{p.productName}</p></div>
+              <h2 className="card-title">Category: {p.category}</h2>
+             <div className="grid grid-cols-2 gap-4"> <p>Price:{p.price}</p>
+              <p>Condition: {p.condition}</p>
+              <p>Product Name: {p.productName}</p></div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
+                <button  className="btn btn-primary">Book Now</button>
+                <label htmlFor="modal-for-booking" className="btn btn-primary">open modal</label>
               </div>
             </div>
           </div>
         ))}
       </div>
+      <BookingModal></BookingModal>
     </div>
   );
 };

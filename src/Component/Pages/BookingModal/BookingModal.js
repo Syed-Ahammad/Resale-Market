@@ -4,8 +4,8 @@ const BookingModal = () => {
   return (
     <div>
         {/* The button to open modal */}
-<label htmlFor="my-modal-6" className="btn">open modal</label>
-      <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+{/* <label htmlFor="modal-for-booking" className="btn">open modal</label> */}
+      <input type="checkbox" id="modal-for-booking" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
@@ -16,7 +16,7 @@ const BookingModal = () => {
             use Wikipedia for free!
           </p>
           <div className="modal-action">
-            <label htmlFor="my-modal-6" className="btn">
+            <label htmlFor="modal-for-booking" className="btn">
               Yay!
             </label>
           </div>

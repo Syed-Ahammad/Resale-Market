@@ -8,7 +8,6 @@ import Swal from 'sweetalert2'
 
 const SignUp = () => {
   const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
-  const [createdUserEmail, setCreatedUserEmail] = useState('');
   const [errorMess, setErrorMess] = useState('');
   const navigate = useNavigate();
   const {
@@ -46,7 +45,15 @@ const SignUp = () => {
   const handleSignInWithGoogle = ()=>{
     signInWithGoogle()
     .then(result=>{
-      console.log(result.user)
+      console.log(result.user);
+      const {displayName, email} = result.user;
+      const user = {
+        name: displayName,
+        email: email,
+        role: 'buyer'
+      }
+      saveGoogleUser(user)
+      console.log(user)
       navigate('/')
     })
     .catch(error=>{
@@ -67,7 +74,20 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         // console.log('save user success', data)
-        setCreatedUserEmail(email);
+      });
+  };
+   // post api for save google user in DB
+   const saveGoogleUser = (user) => {
+    fetch('http://localhost:5000/users',{
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log('save user success', data)
       });
   };
   

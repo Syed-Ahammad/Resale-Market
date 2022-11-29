@@ -7,7 +7,7 @@ import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const { logIn } = useContext(AuthContext);
+  const { logIn, signInWithGoogle } = useContext(AuthContext);
   const [logInUserEmail, setLogInUserEmail] = useState("");
   const navigate = useNavigate();
   const {
@@ -33,6 +33,46 @@ const Login = () => {
       })
       .catch((error) => console.log(error));
   };
+  const handleSignInWithGoogle = ()=>{
+    signInWithGoogle()
+    .then(result=>{
+      console.log(result.user);
+      const {displayName, email} = result.user;
+      const user = {
+        name: displayName,
+        email: email,
+        role: 'buyer'
+      }
+      saveGoogleUser(user)
+      Swal.fire({
+        title: "Success!",
+        text: "Your account sucessfully log in",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      console.log(user)
+      navigate('/')
+    })
+    .catch(error=>{
+      const errorMessage = error.message;
+      console.log(errorMessage)
+    })
+  };
+    // post api for save google user in DB
+    const saveGoogleUser = (user) => {
+      fetch('http://localhost:5000/users',{
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log('save user success', data)
+        });
+    };
+    
   console.log(logInUserEmail);
   return (
     <div className="grid md:grid-cols-2 grid-cols-1 gap-4 place-items-center justify-center items-center my-6">
@@ -98,7 +138,7 @@ const Login = () => {
           </label>
           <div className="divider">OR</div>
           <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
-            <button className="btn btn-outline btn-primary w-full text-4xl rounded-full">
+            <button onClick={handleSignInWithGoogle} className="btn btn-outline btn-primary w-full text-4xl rounded-full">
               <FcGoogle></FcGoogle>
             </button>
             <button className="btn btn-outline btn-primary w-full text-4xl rounded-full font-bold">
