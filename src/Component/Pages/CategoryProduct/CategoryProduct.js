@@ -20,14 +20,13 @@ const CategoryProduct = () => {
               <p>Condition: {p.condition}</p>
               <p>Product Name: {p.productName}</p></div>
               <div className="card-actions justify-end">
-                <button  className="btn btn-primary">Book Now</button>
-                <label htmlFor="modal-for-booking" className="btn btn-primary">open modal</label>
+                <label htmlFor="modal-for-booking" className="btn btn-primary">Buy  Now</label>
               </div>
             </div>
+            <BookingModal product={p}></BookingModal>
           </div>
         ))}
       </div>
-      <BookingModal></BookingModal>
     </div>
   );
 };
