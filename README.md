@@ -1,3 +1,15 @@
+## project live link
+
+=>[https://resale-market-562ef.web.app]
+
+# there are using this dependencis
+1.taildwind css and dauise ui component liabavry
+2. firebase authentication
+3. using react router dom for single page application
+4. using api for fetching data from backend
+5.this project responsive for mobile, desktop and tablet
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

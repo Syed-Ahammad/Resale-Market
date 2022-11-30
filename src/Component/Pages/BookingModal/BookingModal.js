@@ -1,17 +1,37 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
 
 const BookingModal = ({product}) => {
   const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit
   } = useForm();
-  console.log(product);
   const handleBuyProduct =(data) => {
     console.log(data)
-   
+      // post api for save booked product in DB
+    fetch('https://resale-market-server-eight.vercel.app/product/booked',{
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+             Swal.fire({
+          title: 'Success!',
+          text: 'Your product sucessfully Booked',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        })
+        navigate('/')
+        console.log('booked product success', data)
+      });
         
   };
 

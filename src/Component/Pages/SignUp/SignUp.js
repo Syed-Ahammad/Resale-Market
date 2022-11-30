@@ -78,7 +78,7 @@ const SignUp = () => {
   };
    // post api for save google user in DB
    const saveGoogleUser = (user) => {
-    fetch('http://localhost:5000/users',{
+    fetch('https://resale-market-server-eight.vercel.app/users',{
       method: "POST",
       headers: {
         "content-type": "application/json",

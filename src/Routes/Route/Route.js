@@ -54,7 +54,7 @@ const router = createBrowserRouter(
                     path: '/dashboard/products/:category',
                     element: <PrivateRoute><CategoryProduct></CategoryProduct></PrivateRoute>,
                     loader: async ({ params }) => {
-                        return fetch(`http://localhost:5000/dashboard/products/${params.category}`);
+                        return fetch(`https://resale-market-server-eight.vercel.app/dashboard/products/${params.category}`);
                       },
                 }
             ]
