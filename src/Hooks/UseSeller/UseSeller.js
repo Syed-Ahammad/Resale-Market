@@ -1,16 +1,17 @@
 import {useState, useEffect} from 'react';
 const UseSeller = email=>{
     const [isSeller , setIsSeller] = useState(false);
-    const [sellerLoading, setSellerLoading] = useState(false);
+    const [sellerLoading, setSellerLoading] = useState(true);
+    // console.log(email)
 
     useEffect(()=>{
         if(email){
-            fetch(`https://resale-market-server-eight.vercel.app/user/seller/${email}`)
+            fetch(`http://localhost:5000/user/seller/${email}`)
             .then(res => res.json())
             .then(data => {
                 setIsSeller(data.isSeller)
                 setSellerLoading(false)
-                // console.log(data.isAdmin)
+                // console.log(data.isSeller)
             })
         }
     },[email]);

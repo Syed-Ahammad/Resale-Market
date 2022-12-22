@@ -12,18 +12,19 @@ const DashboardLayout = () => {
   const [isAdmin] = UseAdmin(user?.email);
   const [isBuyer] = UseBuyer(user?.email);
   const [isSeller] = UseSeller(user?.email);
+  // console.log(isSeller, isBuyer, isAdmin)
   const dashboardMenus = (
     <>
       {isAdmin && (
         <>
           <li>
-            <Link>All Products</Link>
+            <Link to={'/dashboard/allproducts'}>All Products</Link>
           </li>
           <li>
-            <Link>All Buyers</Link>
+            <Link to={'/dashboard/allbuyers'}>All Buyers</Link>
           </li>
           <li>
-            <Link>All Sellers</Link>
+            <Link to={'/dashboard/allsellers'}>All Sellers</Link>
           </li>
         </>
       )}

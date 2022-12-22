@@ -45,7 +45,7 @@ const AddProduct = () => {
   };
 //    post api for save produnt in DB
    const saveProduct = async(product) => {
-    fetch('https://resale-market-server-eight.vercel.app/addproduct',{
+    fetch('http://localhost:5000/addproduct',{
       method: "POST",
       headers: {
         "content-type": "application/json",

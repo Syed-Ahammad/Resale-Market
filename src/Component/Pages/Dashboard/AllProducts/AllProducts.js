@@ -1,31 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
-import { AuthContext } from "../../../Context/AuthProvider/AuthProvider";
-import Loading from "../../SharedPage/Loading/Loading";
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../../Context/AuthProvider/AuthProvider';
+import Loading from '../../../SharedPage/Loading/Loading';
 
-const MyProducts = () => {
-  const { user } = useContext(AuthContext);
-  const {
-    data: myProduct = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["seller/myproduct", user?.email],
-    queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5000/seller/myproduct?email=${user?.email}`
-      );
-      const data = await res.json();
-      return data;
+const AllProducts = () => {
+    const { user } = useContext(AuthContext);
+    const {
+      data: allProducts = [],
+      refetch,
+      isLoading,
+    } = useQuery({
+      queryKey: ["admin/allproduct/:email", user?.email],
+      queryFn: async () => {
+        const res = await fetch(
+          `http://localhost:5000/admin/allproducts/${user?.email}`
+        );
+        const data = await res.json();
+        return data;
     },
-  });
-  refetch();
-
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
-  return (
-    <div className="overflow-x-auto">
+    });
+    refetch();
+  
+    console.log(allProducts)
+    if (isLoading) {
+      return <Loading></Loading>;
+    }
+    return (
+       <div className="overflow-x-auto">
       <table className="table table-compact w-full">
         <thead>
           <tr>
@@ -41,7 +42,7 @@ const MyProducts = () => {
           </tr>
         </thead>
         <tbody>
-          {myProduct.map((product, i) => (
+          {allProducts.map((product, i) => (
             <tr key={product._id}>
               <th>{i+1}</th>
               <td><img className="mask mask-square w-20" src={product.image} alt=''/></td>
@@ -65,7 +66,7 @@ const MyProducts = () => {
         </tbody>
       </table>
     </div>
-  );
+    );
 };
 
-export default MyProducts;
+export default AllProducts;

@@ -14,7 +14,7 @@ const BookingModal = ({product}) => {
   const handleBuyProduct =(data) => {
     console.log(data)
       // post api for save booked product in DB
-    fetch('https://resale-market-server-eight.vercel.app/product/booked',{
+    fetch('http://localhost:5000/product/booked',{
       method: "POST",
       headers: {
         "content-type": "application/json",

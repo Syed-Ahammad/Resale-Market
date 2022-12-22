@@ -11,7 +11,7 @@ const Category = () => {
   } = useQuery({
     queryKey: ["category"],
     queryFn: async () => {
-      const res = await fetch(`https://resale-market-server-eight.vercel.app/category`);
+      const res = await fetch(`http://localhost:5000/category`);
       const data = await res.json();
       return data;
     },
@@ -23,7 +23,7 @@ const Category = () => {
   }
   return (
     <div className="my-4 ">
-      <h2 className="text-2xl text-center font-bold">
+      <h2 className="text-4xl text-center font-bold">
         Choose a Category for Find Your Best Product{" "}
       </h2>
       <div className="divider"></div>
@@ -31,7 +31,7 @@ const Category = () => {
         {categories.map((category, i) => (
          <Link key={i} to={`dashboard/products/${category}`}> <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <div className="card-body">
-              <h2 className="text-6xl text-indigo-600 text-center">{category}</h2>
+              <h2 className="text-6xl text-indigo-600 text-center uppercase">{category}</h2>
               <div className="card-actions justify-end">
               </div>
             </div>
