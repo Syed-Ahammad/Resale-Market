@@ -59,7 +59,7 @@ const DashboardLayout = () => {
       <Navbar></Navbar>
       <div className="drawer drawer-mobile">
         <input id="dashboard-page" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
+        <div className="drawer-content flex flex-col justify-center">
           {/* <!-- Page content here --> */}
           <Outlet></Outlet>
         </div>
